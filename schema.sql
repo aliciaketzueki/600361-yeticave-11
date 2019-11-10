@@ -4,41 +4,45 @@ CREATE DATABASE IF NOT EXISTS yeticave
 
 USE yeticave;
 
+/* ПОЛЬЗОВАТЕЛИ */
+CREATE TABLE IF NOT EXISTS users (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    reg_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    email VARCHAR(128) NOT NULL UNIQUE,
+    name CHAR(64) NOT NULL,
+    password CHAR(64) NOT NULL,
+    contacts VARCHAR(128) NOT NULL
+);
+/* КАТЕГОРИИ */
 CREATE TABLE IF NOT EXISTS categories (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(128) NOT NULL,
     code VARCHAR(128) NOT NULL UNIQUE
 );
-
+/* ОБЪЯВЛЕНИЯ */
 CREATE TABLE IF NOT EXISTS lots (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     create_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    name CHAR(64) NOT NULL,
+    title CHAR(64) NOT NULL,
     descr VARCHAR(128),
     image VARCHAR(2083) NOT NULL,
     start_cost INT NOT NULL,
     finish_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     step INT NOT NULL,
-    author_id INT,
-    winner_id INT,
-    category_id INT
+    author_id INT UNSIGNED NOT NULL,
+    winner_id INT UNSIGNED,
+    category_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (author_id) REFERENCES users(id),
+    FOREIGN KEY (winner_id) REFERENCES users(id),
+    FOREIGN KEY (category_id) REFERENCES categories(id)
 );
-
+/* СТАВКИ */
 CREATE TABLE IF NOT EXISTS bids (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     cost INT NOT NULL,
-    user_id INT,
-    lot_id INT
-);
-
-CREATE TABLE IF NOT EXISTS users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    reg_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    email VARCHAR(128) NOT NULL UNIQUE,
-    login CHAR(64) NOT NULL,
-    password CHAR(64) NOT NULL,
-    contacts VARCHAR(128) NOT NULL,
-    lot_id INT,
-    bid_id INT
+    user_id INT UNSIGNED NOT NULL,
+    lot_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (lot_id) REFERENCES lots(id)
 );
