@@ -24,7 +24,7 @@
     <nav class="user-menu">
     <?php if ($is_auth === 1): ?>
         <div class="user-menu__logged">
-          <p><?= $user_name ?></p>
+          <p><?= htmlspecialchars($user_name) ?></p>
           <a class="user-menu__bets" href="pages/my-bets.html">Мои ставки</a>
           <a class="user-menu__logout" href="#">Выход</a>
         </div>
@@ -50,7 +50,7 @@
     <ul class="nav__list container">
     <?php foreach($categories as $key => $val): ?>
       <li class="nav__item">
-        <a href="pages/all-lots.html"><?= $val ?></a>
+        <a href="pages/all-lots.html"><?= htmlspecialchars($val) ?></a>
       </li>
     <?php endforeach; ?>
     </ul>
