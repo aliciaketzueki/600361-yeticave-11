@@ -4,7 +4,7 @@ CREATE DATABASE IF NOT EXISTS yeticave
 
 USE yeticave;
 
-/* ПОЛЬЗОВАТЕЛИ */
+-- ПОЛЬЗОВАТЕЛИ
 CREATE TABLE IF NOT EXISTS users (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     reg_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -13,13 +13,13 @@ CREATE TABLE IF NOT EXISTS users (
     password CHAR(64) NOT NULL,
     contacts VARCHAR(128) NOT NULL
 );
-/* КАТЕГОРИИ */
+-- КАТЕГОРИИ
 CREATE TABLE IF NOT EXISTS categories (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(128) NOT NULL,
     code VARCHAR(128) NOT NULL UNIQUE
 );
-/* ОБЪЯВЛЕНИЯ */
+-- ОБЪЯВЛЕНИЯ
 CREATE TABLE IF NOT EXISTS lots (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     create_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS lots (
     FOREIGN KEY (winner_id) REFERENCES users(id),
     FOREIGN KEY (category_id) REFERENCES categories(id)
 );
-/* СТАВКИ */
+-- СТАВКИ
 CREATE TABLE IF NOT EXISTS bids (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
